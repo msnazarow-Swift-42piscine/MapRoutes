@@ -44,6 +44,7 @@ class MapViewController: UIViewController {
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.delegate = self
         return mapView
     }()
 
@@ -225,24 +226,52 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     }
 
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        if selectedLocation == .fromLocation {
+        switch selectedLocation {
+        case .fromLocation:
             fromTextField.text = "\(String(describing: place.formattedAddress!))"
             fromLocation = place.coordinate
-            fromMarker.position = place.coordinate
-            fromMarker.opacity = 1
-            fromMarker.map = googleMapView
-        } else {
+            addMarkerCorrdinate(marker: fromMarker, at: place.coordinate)
+        case .toLocation:
             toTextField.text = "\(String(describing: place.formattedAddress!))"
             toLocation = place.coordinate
-            toMarker.position = place.coordinate
-            toMarker.opacity = 1
-            toMarker.map = googleMapView
+            addMarkerCorrdinate(marker: toMarker, at: place.coordinate)
         }
         googleMapView.animate(to: GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 15.0))
         self.dismiss(animated: true, completion: nil)
     }
 
+    private func addMarkerCorrdinate(marker: GMSMarker, at location: CLLocationCoordinate2D) {
+        marker.position = location
+        marker.opacity = 1
+        marker.map = googleMapView
+    }
+
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        marker.opacity = 0
+        return true
+    }
+
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+
+    }
+
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        if (fromMarker.opacity == 0) {
+        addMarkerCorrdinate(marker: fromMarker, at: coordinate)
+        fromLocation = coordinate
+        fromTextField.text = "\(coordinate.latitude) \(coordinate.latitude)"
+        } else {
+            addMarkerCorrdinate(marker: toMarker, at: coordinate)
+            toLocation = coordinate
+            toTextField.text = "\(coordinate.latitude) \(coordinate.latitude)"
+        }
     }
 }

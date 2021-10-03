@@ -27,6 +27,7 @@
 		3E3A91922709DABB000B9326 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91822709DABB000B9326 /* MapViewController.swift */; };
 		3E3A91932709DABB000B9326 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91842709DABB000B9326 /* MapInteractor.swift */; };
 		3E3A91942709DABB000B9326 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91862709DABB000B9326 /* MapRouter.swift */; };
+		3E7E1EEE270A05E400678E97 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7E1EED270A05E400678E97 /* DesignableUITextField.swift */; };
 		C4EA790C0F2D6FF904BC3DF6 /* Pods_Rush01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9974B1E39159F31F132C2D63 /* Pods_Rush01.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		3E3A91822709DABB000B9326 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3E3A91842709DABB000B9326 /* MapInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		3E3A91862709DABB000B9326 /* MapRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
+		3E7E1EED270A05E400678E97 /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		60B966BB186A811EEDE017C6 /* Pods-Rush01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rush01.debug.xcconfig"; path = "Target Support Files/Pods-Rush01/Pods-Rush01.debug.xcconfig"; sourceTree = "<group>"; };
 		71F9797B732B5C5A0707DFA8 /* Pods-Rush01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rush01.release.xcconfig"; path = "Target Support Files/Pods-Rush01/Pods-Rush01.release.xcconfig"; sourceTree = "<group>"; };
 		9974B1E39159F31F132C2D63 /* Pods_Rush01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rush01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 			children = (
 				3E3A916C2709DABB000B9326 /* UITableViewComponents */,
 				3E3A91732709DABB000B9326 /* ModelRepresentableProtocol.swift */,
+				3E7E1EED270A05E400678E97 /* DesignableUITextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				3E3A91942709DABB000B9326 /* MapRouter.swift in Sources */,
 				3E3A91912709DABB000B9326 /* MapPresenterDataSource.swift in Sources */,
 				3E3A91932709DABB000B9326 /* MapInteractor.swift in Sources */,
+				3E7E1EEE270A05E400678E97 /* DesignableUITextField.swift in Sources */,
 				3E3A918A2709DABB000B9326 /* TableViewContract.swift in Sources */,
 				3B9E0B542708788200C6B89C /* SceneDelegate.swift in Sources */,
 				3E3A918D2709DABB000B9326 /* UIWindow+Ext.swift in Sources */,

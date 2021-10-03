@@ -30,7 +30,7 @@
                                 <color key="textColor" red="0.32549020649999999" green="0.71764707569999997" blue="0.72941178080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yl7-Tm-TwQ">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="yl7-Tm-TwQ" customClass="DesignableUITextField" customModule="Rush01" customModuleProvider="target">
                                 <rect key="frame" x="68" y="782" width="265" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -38,7 +38,7 @@
                                     <action selector="editingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="RkZ-p8-WEu"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-5j-l4s">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-5j-l4s" customClass="DesignableUITextField">
                                 <rect key="frame" x="68" y="823" width="265" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -46,20 +46,6 @@
                                     <action selector="editingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="eu6-00-YnX"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-hP-dJs">
-                                <rect key="frame" x="299" y="784" width="32" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="UFZ-47-2qw"/>
-                                    <constraint firstAttribute="width" constant="32" id="s0G-GI-QVc"/>
-                                </constraints>
-                                <color key="tintColor" red="0.32549020649999999" green="0.71764707569999997" blue="0.72941178080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WD1-GH-R5u"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-m3-ybn">
                                 <rect key="frame" x="338" y="783" width="34" height="33"/>
                                 <constraints>
@@ -108,7 +94,7 @@
                                     <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uzd-5y-hSU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vb4-t7-H6z">
+                            <button hidden="YES" opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vb4-t7-H6z">
                                 <rect key="frame" x="298" y="823" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="ZLW-3G-IwU"/>
@@ -134,6 +120,20 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zpB-bq-yRZ"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-hP-dJs">
+                                <rect key="frame" x="299" y="784" width="32" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="UFZ-47-2qw"/>
+                                    <constraint firstAttribute="width" constant="32" id="s0G-GI-QVc"/>
+                                </constraints>
+                                <color key="tintColor" red="0.32549020649999999" green="0.71764707569999997" blue="0.72941178080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WD1-GH-R5u"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -176,6 +176,14 @@
             <point key="canvasLocation" x="931.88405797101461" y="75"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="fbM-5j-l4s">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+        <designable name="yl7-Tm-TwQ">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <image name="arrow.up.arrow.down.circle" catalog="system" width="128" height="121"/>
         <image name="location.fill" catalog="system" width="128" height="121"/>
