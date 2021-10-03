@@ -17,81 +17,109 @@ class MapViewController: UIViewController {
     // MARK: - Properties
     var presenter: ViewToPresenterMapProtocol!
 
-//    // MARK: - Lifecycle Methods
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        setupUI()
-//        presenter?.viewDidLoad()
-//    }
-//
-//    private func setupUI() {
-//        addSubviews()
-//        setupConstraints()
-//    }
-//
-//    private func addSubviews() {
-//
-//    }
-//
-//    private func setupConstraints() {
-//
-//    }
-
-
-
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
-    @IBOutlet weak var mapView: UIView!
+//    @IBOutlet weak var mapView: UIView!
+    @IBOutlet weak var getRouteButton: UIButton!
 
     var fromLocation = CLLocationCoordinate2D()
     var toLocation = CLLocationCoordinate2D()
     var currentLocation: CLLocationCoordinate2D?
     var selectedLocation = toFromLocation.fromLocation
 
-    let fromMarker = GMSMarker()
-    let toMarker = GMSMarker()
+    let fromMarker: GMSMarker = {
+        let marker = GMSMarker()
+        marker.opacity = 0
+        return marker
+    }()
 
-    var googleMapView = GMSMapView()
-    var camera = GMSCameraPosition()
+    let toMarker: GMSMarker = {
+        let marker = GMSMarker()
+        marker.opacity = 0
+        return marker
+    }()
+
+    lazy var googleMapView: GMSMapView = {
+        let mapView = GMSMapView.map(withFrame: CGRect(), camera: camera)
+        mapView.settings.myLocationButton = true
+        mapView.isMyLocationEnabled = true
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        return mapView
+    }()
+
+    // camera это положение куда смотрит камера на карте, чем больше zoom, тем ближе
+    // начальное положение камеры - школа в Москве
+    lazy var camera: GMSCameraPosition = {
+        let camera = GMSCameraPosition.camera(withLatitude: 55.797, longitude: 37.580, zoom: 15.0)
+        return camera
+    }()
 
     var polyline = GMSPolyline()
 
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // camera это положение куда смотрит камера на карте, чем больше zoom, тем ближе
-        // начальное положение камеры - школа в Москве
-        camera = GMSCameraPosition.camera(withLatitude: 55.797, longitude: 37.580, zoom: 15.0)
-        googleMapView = GMSMapView.map(withFrame: mapView.frame, camera: camera)
-        googleMapView.settings.myLocationButton = true
-        googleMapView.isMyLocationEnabled = true
-        mapView.addSubview(googleMapView)
-
-        fromMarker.opacity = 0
-        toMarker.opacity = 0
+        setupUI()
+        presenter?.viewDidLoad()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //совмещение фрэйма гугловской карты и вьюхи в сториборде
-        googleMapView.frame = mapView.frame
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        //совмещение фрэйма гугловской карты и вьюхи в сториборде
+//        super.viewWillTransition(to: size, with: coordinator)
+//        googleMapView.frame = mapView.frame
+//    }
+//
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//    }
+    private func setupUI() {
+        addSubviews()
+        setupConstraints()
     }
+
+    private func addSubviews() {
+//        mapView.addSubview(googleMapView)
+        view.addSubview(googleMapView)
+//        view.sendSubviewToBack(mapView)
+    }
+
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
+            googleMapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            googleMapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            googleMapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            googleMapView.bottomAnchor.constraint(equalTo: getRouteButton.topAnchor,constant: -5)
+        ])
+    }
+
+    @IBAction func buttonDidTapped(_ sender: UIButton) {
+        presenter.buttonDidTapped(with: ButtonTag(rawValue: sender.tag))
+    }
+
+    @IBAction func editingDidBegin(_ sender: UITextField) {
+        presenter.editingDidBegin(with: TextFieldTag(rawValue: sender.tag))
+    }
+}
+
+extension MapViewController: PresenterToViewMapProtocol{
 
     // Очистка позиции from
-    @IBAction func fromClearButtonAction(_ sender: UIButton) {
+    func clearFrom(){
         fromTextField.text = ""
         polyline.map = nil
         fromMarker.opacity = 0
     }
 
     // Очистка позиции to
-    @IBAction func toClearButtonAction(_ sender: UIButton) {
+    func clearTo(){
         toTextField.text = ""
         polyline.map = nil
         toMarker.opacity = 0
     }
 
     // Установка моей геопозиции в From
-    @IBAction func myLocationForFrom(_ sender: UIButton) {
+    func myLocationFrom(){
         let myLocation = googleMapView.myLocation!.coordinate
         if  toTextField.text == "My location" {
             toTextField.text = ""
@@ -106,7 +134,7 @@ class MapViewController: UIViewController {
     }
 
     // Установка моей геопозиции в To
-    @IBAction func myLocationForTo(_ sender: UIButton) {
+    func myLocationTo() {
         let myLocation = googleMapView.myLocation!.coordinate
         if  fromTextField.text == "My location" {
             fromTextField.text = ""
@@ -121,7 +149,7 @@ class MapViewController: UIViewController {
     }
 
 //    Меняю from и to местами
-    @IBAction func swapToFromButtonAction(_ sender: UIButton) {
+    func swapToFrom() {
         let newLocation = fromLocation
         fromLocation = toLocation
         fromMarker.position = toLocation
@@ -132,21 +160,15 @@ class MapViewController: UIViewController {
         toTextField.text = newTextLocation
     }
 
-    @IBAction func fromTextFieldAction(_ sender: UITextField) {
+
+    func openAutocomplete(with location: toFromLocation) {
         let autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
-        selectedLocation = .fromLocation
+        selectedLocation = location
         self.present(autoCompleteViewController, animated: true, completion: nil)
     }
 
-    @IBAction func toTextFieldAction(_ sender: UITextField) {
-        let autoCompleteViewController = GMSAutocompleteViewController()
-        autoCompleteViewController.delegate = self
-        selectedLocation = .toLocation
-        self.present(autoCompleteViewController, animated: true, completion: nil)
-    }
-
-    @IBAction func getRouteButtonAction(_ sender: UIButton) {
+     func getRoute() {
         if fromMarker.opacity == 0 || toMarker.opacity == 0 {
             return
         }
@@ -196,9 +218,6 @@ class MapViewController: UIViewController {
     }
 }
 
-extension MapViewController: PresenterToViewMapProtocol{
-    
-}
 
 extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

@@ -11,14 +11,23 @@ import UIKit
 
 // MARK: View Output (Presenter -> View)
 protocol PresenterToViewMapProtocol: AnyObject {
-
+    func clearFrom()
+    func clearTo()
+    func myLocationFrom()
+    func myLocationTo()
+    func swapToFrom()
+    func openAutocomplete(with location: toFromLocation)
+    func getRoute()
 }
 
 
 // MARK: View Input (View -> Presenter)
 protocol ViewToPresenterMapProtocol: AnyObject {
     var dataSource:PresenterToDataSourceMapProtocol { get }
+
     func viewDidLoad()
+    func buttonDidTapped(with tag: ButtonTag!)
+    func editingDidBegin(with tag: TextFieldTag!)
 }
 
 

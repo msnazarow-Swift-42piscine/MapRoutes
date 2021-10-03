@@ -12,8 +12,8 @@ enum MapAssembly{
     
     // MARK: Static methods
     static func createModule() -> UIViewController {
-
-        let viewController = MapViewController()
+        let storyboard = UIStoryboard(name: "Map", bundle: nil)
+        let viewController = storyboard.instantiateInitialViewController() as! MapViewController
         let router = MapRouter(view: viewController)
         let interactor = MapInteractor()
         let dataSource = MapPresenterDataSource()

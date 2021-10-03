@@ -8,6 +8,19 @@
 
 import Foundation
 
+enum ButtonTag: Int {
+    case getRoute = 0
+    case swapToFrom = 1
+    case mylocationFrom = 2
+    case mylocationTo = 3
+    case clearFrom = 4
+    case clearTo = 5
+}
+
+enum TextFieldTag: Int {
+    case from
+    case to
+}
 class MapPresenter: ViewToPresenterMapProtocol {
 
     // MARK: Properties
@@ -15,6 +28,8 @@ class MapPresenter: ViewToPresenterMapProtocol {
     let interactor: PresenterToInteractorMapProtocol
     let router: PresenterToRouterMapProtocol
     let dataSource:PresenterToDataSourceMapProtocol
+
+
 
     // MARK: Init
     init(view: PresenterToViewMapProtocol,
@@ -29,6 +44,35 @@ class MapPresenter: ViewToPresenterMapProtocol {
 
     func viewDidLoad(){
 
+    }
+
+    func buttonDidTapped(with tag: ButtonTag!) {
+        switch tag {
+        case .getRoute:
+            view.getRoute()
+        case .mylocationFrom:
+            view.myLocationFrom()
+        case .mylocationTo:
+            view.myLocationTo()
+        case .clearFrom:
+            view.clearFrom()
+        case .clearTo:
+            view.clearTo()
+        case .swapToFrom:
+            view.swapToFrom()
+        default:
+            break
+        }
+    }
+    func editingDidBegin(with tag: TextFieldTag!) {
+        switch tag {
+        case .from:
+            view.openAutocomplete(with: .fromLocation)
+        case .to:
+            view.openAutocomplete(with: .toLocation)
+        default:
+            break
+        }
     }
 }
 

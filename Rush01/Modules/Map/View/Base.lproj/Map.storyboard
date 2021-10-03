@@ -35,18 +35,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="fromTextFieldAction:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="ran-Pc-9gL"/>
+                                    <action selector="editingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="RkZ-p8-WEu"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-5j-l4s">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-5j-l4s">
                                 <rect key="frame" x="68" y="823" width="265" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="toTextFieldAction:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="nnX-tQ-ZxN"/>
+                                    <action selector="editingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="eu6-00-YnX"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-hP-dJs">
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-hP-dJs">
                                 <rect key="frame" x="299" y="784" width="32" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="UFZ-47-2qw"/>
@@ -57,10 +57,10 @@
                                     <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="fromClearButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="swv-pa-t4A"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WD1-GH-R5u"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-m3-ybn">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-m3-ybn">
                                 <rect key="frame" x="338" y="783" width="34" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="CqA-LP-ESe"/>
@@ -73,10 +73,10 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="myLocationForFrom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kft-je-T05"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hrw-Cy-bPU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBf-K2-lI6">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBf-K2-lI6">
                                 <rect key="frame" x="372" y="800" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="06C-cc-IZZ"/>
@@ -87,7 +87,7 @@
                                     <imageReference key="image" image="arrow.up.arrow.down.circle" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="swapToFromButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9F3-hv-coh"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Euz-3g-PCK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgs-WB-AOy">
@@ -105,14 +105,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="getRouteButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GDE-Ca-aOh"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uzd-5y-hSU"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prr-bU-ysH">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="738"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vb4-t7-H6z">
+                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vb4-t7-H6z">
                                 <rect key="frame" x="298" y="823" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="ZLW-3G-IwU"/>
@@ -123,10 +119,10 @@
                                     <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="toClearButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NMa-Tv-Ct0"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6ZX-6Y-cph"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDD-IX-56X">
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDD-IX-56X">
                                 <rect key="frame" x="338" y="823" width="34" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="j4t-Gp-Vqs"/>
@@ -137,7 +133,7 @@
                                     <imageReference key="image" image="location.fill" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="myLocationForTo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zx6-P4-ye1"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zpB-bq-yRZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -149,15 +145,12 @@
                             <constraint firstItem="fbM-5j-l4s" firstAttribute="leading" secondItem="nBo-R6-7yO" secondAttribute="trailing" constant="29" id="4Dv-WP-LjY"/>
                             <constraint firstItem="nBo-R6-7yO" firstAttribute="top" secondItem="eIL-9J-zff" secondAttribute="bottom" constant="20" id="63Q-wZ-56r"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MBf-K2-lI6" secondAttribute="bottom" constant="26" id="7EF-I5-C2o"/>
-                            <constraint firstItem="prr-bU-ysH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9Fg-ZU-2LA"/>
                             <constraint firstItem="eIL-9J-zff" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="A7W-Te-lBZ"/>
                             <constraint firstItem="WQM-m3-ybn" firstAttribute="leading" secondItem="x57-hP-dJs" secondAttribute="trailing" constant="7" id="AdJ-5B-zDG"/>
                             <constraint firstItem="fbM-5j-l4s" firstAttribute="top" secondItem="x57-hP-dJs" secondAttribute="bottom" constant="8" id="Cpl-kO-r6s"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MBf-K2-lI6" secondAttribute="trailing" constant="6" id="DNa-uj-Oc2"/>
-                            <constraint firstItem="prr-bU-ysH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="EZn-H6-96J"/>
                             <constraint firstItem="DDD-IX-56X" firstAttribute="leading" secondItem="fbM-5j-l4s" secondAttribute="trailing" constant="5" id="FH9-8P-ybJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vb4-t7-H6z" secondAttribute="bottom" constant="7" id="IHc-sz-3dN"/>
-                            <constraint firstItem="prr-bU-ysH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kxq-9A-d2N"/>
                             <constraint firstItem="nBo-R6-7yO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="LXI-Zt-r7m"/>
                             <constraint firstItem="DDD-IX-56X" firstAttribute="leading" secondItem="Vb4-t7-H6z" secondAttribute="trailing" constant="8" id="NTL-ai-XMl"/>
                             <constraint firstItem="tgs-WB-AOy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="P85-dJ-y4z"/>
@@ -170,12 +163,11 @@
                             <constraint firstItem="MBf-K2-lI6" firstAttribute="leading" secondItem="WQM-m3-ybn" secondAttribute="trailing" id="flm-gl-scs"/>
                             <constraint firstItem="DDD-IX-56X" firstAttribute="top" secondItem="WQM-m3-ybn" secondAttribute="bottom" constant="7" id="ikh-aO-CrJ"/>
                             <constraint firstItem="yl7-Tm-TwQ" firstAttribute="top" secondItem="tgs-WB-AOy" secondAttribute="bottom" constant="9" id="sfM-BN-xI4"/>
-                            <constraint firstItem="tgs-WB-AOy" firstAttribute="top" secondItem="prr-bU-ysH" secondAttribute="bottom" constant="5" id="ten-3f-tXj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="fromTextField" destination="yl7-Tm-TwQ" id="0Ud-kG-mPC"/>
-                        <outlet property="mapView" destination="prr-bU-ysH" id="ZqP-g0-soM"/>
+                        <outlet property="getRouteButton" destination="tgs-WB-AOy" id="9gy-H2-V4U"/>
                         <outlet property="toTextField" destination="fbM-5j-l4s" id="xan-Bx-GRY"/>
                     </connections>
                 </viewController>
