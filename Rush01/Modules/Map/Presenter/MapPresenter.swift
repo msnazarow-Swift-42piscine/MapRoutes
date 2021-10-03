@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreLocation
+import GoogleMaps
 
 enum ButtonTag: Int {
     case getRoute = 0
@@ -29,7 +31,8 @@ class MapPresenter: ViewToPresenterMapProtocol {
     let router: PresenterToRouterMapProtocol
     let dataSource:PresenterToDataSourceMapProtocol
 
-
+    var fromMarkerLocation: CLLocationCoordinate2D!
+    var toMarkerLocation: CLLocationCoordinate2D!
 
     // MARK: Init
     init(view: PresenterToViewMapProtocol,
@@ -49,7 +52,7 @@ class MapPresenter: ViewToPresenterMapProtocol {
     func buttonDidTapped(with tag: ButtonTag!) {
         switch tag {
         case .getRoute:
-            view.getRoute()
+            getRoute()
         case .mylocationFrom:
             view.myLocationFrom()
         case .mylocationTo:
@@ -62,6 +65,19 @@ class MapPresenter: ViewToPresenterMapProtocol {
             view.swapToFrom()
         default:
             break
+        }
+    }
+
+    private func getRoute(){
+        if fromMarkerLocation != nil && toMarkerLocation != nil {
+            interactor.getRoute(from: fromMarkerLocation, to: toMarkerLocation) { result in
+                switch result {
+                case .success(let path):
+                    self.view.addPolyline(with: path)
+                case .failure:
+                    self.view.showAlert()
+                }
+            }
         }
     }
 
@@ -85,6 +101,24 @@ class MapPresenter: ViewToPresenterMapProtocol {
         default:
             break
         }
+    }
+
+    func didTapMarker(_ marker: GMSMarker) {
+        if marker.position == fromMarkerLocation {
+            fromMarkerLocation = nil
+        } else if marker.position == toMarkerLocation {
+            toMarkerLocation = nil
+        }
+        view.hideMarker(marker)
+    }
+
+    func didLongPressAt(_ coordinate: CLLocationCoordinate2D) {
+        if fromMarkerLocation == nil {
+            fromMarkerLocation = coordinate
+        } else {
+            toMarkerLocation = coordinate
+        }
+        view.addMarkerAt(coordinate)
     }
 }
 
