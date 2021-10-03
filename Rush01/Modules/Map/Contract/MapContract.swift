@@ -28,6 +28,7 @@ protocol ViewToPresenterMapProtocol: AnyObject {
     func viewDidLoad()
     func buttonDidTapped(with tag: ButtonTag!)
     func editingDidBegin(with tag: TextFieldTag!)
+    func textFieldShouldClear(with tag: TextFieldTag!)
 }
 
 

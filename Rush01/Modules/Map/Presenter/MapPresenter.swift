@@ -64,6 +64,18 @@ class MapPresenter: ViewToPresenterMapProtocol {
             break
         }
     }
+
+    func textFieldShouldClear(with tag: TextFieldTag!) {
+        switch tag {
+        case .from:
+            view.clearFrom()
+        case .to:
+            view.clearTo()
+        default:
+            break
+        }
+    }
+
     func editingDidBegin(with tag: TextFieldTag!) {
         switch tag {
         case .from:

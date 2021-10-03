@@ -38,7 +38,7 @@
                                     <action selector="editingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="RkZ-p8-WEu"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-5j-l4s" customClass="DesignableUITextField">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-5j-l4s" customClass="DesignableUITextField">
                                 <rect key="frame" x="68" y="823" width="265" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -46,6 +46,20 @@
                                     <action selector="editingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="eu6-00-YnX"/>
                                 </connections>
                             </textField>
+                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-hP-dJs">
+                                <rect key="frame" x="299" y="784" width="32" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="UFZ-47-2qw"/>
+                                    <constraint firstAttribute="width" constant="32" id="s0G-GI-QVc"/>
+                                </constraints>
+                                <color key="tintColor" red="0.32549020649999999" green="0.71764707569999997" blue="0.72941178080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WD1-GH-R5u"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-m3-ybn">
                                 <rect key="frame" x="338" y="783" width="34" height="33"/>
                                 <constraints>
@@ -60,20 +74,6 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hrw-Cy-bPU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBf-K2-lI6">
-                                <rect key="frame" x="372" y="800" width="36" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="06C-cc-IZZ"/>
-                                    <constraint firstAttribute="width" constant="36" id="mE9-np-X6G"/>
-                                </constraints>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="arrow.up.arrow.down.circle" catalog="system" symbolScale="large"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Euz-3g-PCK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgs-WB-AOy">
@@ -122,18 +122,18 @@
                                     <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zpB-bq-yRZ"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x57-hP-dJs">
-                                <rect key="frame" x="299" y="784" width="32" height="31"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBf-K2-lI6">
+                                <rect key="frame" x="372" y="800" width="36" height="36"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="UFZ-47-2qw"/>
-                                    <constraint firstAttribute="width" constant="32" id="s0G-GI-QVc"/>
+                                    <constraint firstAttribute="height" constant="36" id="06C-cc-IZZ"/>
+                                    <constraint firstAttribute="width" constant="36" id="mE9-np-X6G"/>
                                 </constraints>
-                                <color key="tintColor" red="0.32549020649999999" green="0.71764707569999997" blue="0.72941178080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal">
-                                    <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
+                                    <imageReference key="image" image="arrow.up.arrow.down.circle" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WD1-GH-R5u"/>
+                                    <action selector="buttonDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Euz-3g-PCK"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     // MARK: - Properties
     var presenter: ViewToPresenterMapProtocol!
 
+    var clear: Bool!
+
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
 //    @IBOutlet weak var mapView: UIView!
@@ -64,25 +66,15 @@ class MapViewController: UIViewController {
         presenter?.viewDidLoad()
     }
 
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        //совмещение фрэйма гугловской карты и вьюхи в сториборде
-//        super.viewWillTransition(to: size, with: coordinator)
-//        googleMapView.frame = mapView.frame
-//    }
-//
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//    }
     private func setupUI() {
         addSubviews()
         setupConstraints()
+        fromTextField.delegate = self
+        toTextField.delegate = self
     }
 
     private func addSubviews() {
-//        mapView.addSubview(googleMapView)
         view.addSubview(googleMapView)
-//        view.sendSubviewToBack(mapView)
     }
 
     private func setupConstraints(){
@@ -99,7 +91,7 @@ class MapViewController: UIViewController {
     }
 
     @IBAction func editingDidBegin(_ sender: UITextField) {
-        presenter.editingDidBegin(with: TextFieldTag(rawValue: sender.tag))
+//        presenter.editingDidBegin(with: TextFieldTag(rawValue: sender.tag))
     }
 }
 
@@ -151,14 +143,8 @@ extension MapViewController: PresenterToViewMapProtocol{
 
 //    Меняю from и to местами
     func swapToFrom() {
-        let newLocation = fromLocation
-        fromLocation = toLocation
-        fromMarker.position = toLocation
-        toLocation = newLocation
-        toMarker.position = newLocation
-        let newTextLocation = fromTextField.text
-        fromTextField.text = toTextField.text
-        toTextField.text = newTextLocation
+        swap(&toMarker.position, &fromMarker.position)
+        swap(&fromTextField.text, &toTextField.text)
     }
 
 
@@ -173,8 +159,8 @@ extension MapViewController: PresenterToViewMapProtocol{
         if fromMarker.opacity == 0 || toMarker.opacity == 0 {
             return
         }
-        let sourceLocation = "\(fromLocation.latitude),\(fromLocation.longitude)"
-        let destinationLocation = "\(toLocation.latitude),\(toLocation.longitude)"
+         let sourceLocation = "\(fromMarker.position.latitude),\(fromMarker.position.longitude)"
+         let destinationLocation = "\(toMarker.position.latitude),\(toMarker.position.longitude)"
         // url для запроса для получения маршрута между двумя точками
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(sourceLocation)&destination=\(destinationLocation)&mode=driving&key=AIzaSyDxQKxlw1vUZXhmRHNaUSpVfAVUqjQEd0Y"
 
@@ -229,11 +215,9 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         switch selectedLocation {
         case .fromLocation:
             fromTextField.text = "\(String(describing: place.formattedAddress!))"
-            fromLocation = place.coordinate
             addMarkerCorrdinate(marker: fromMarker, at: place.coordinate)
         case .toLocation:
             toTextField.text = "\(String(describing: place.formattedAddress!))"
-            toLocation = place.coordinate
             addMarkerCorrdinate(marker: toMarker, at: place.coordinate)
         }
         googleMapView.animate(to: GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 15.0))
@@ -256,22 +240,32 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         marker.opacity = 0
+        polyline.map = nil
         return true
-    }
-
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-
     }
 
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
         if (fromMarker.opacity == 0) {
-        addMarkerCorrdinate(marker: fromMarker, at: coordinate)
-        fromLocation = coordinate
-        fromTextField.text = "\(coordinate.latitude) \(coordinate.latitude)"
+            addMarkerCorrdinate(marker: fromMarker, at: coordinate)
+            fromTextField.text = "\(coordinate.latitude) \(coordinate.latitude)"
         } else {
             addMarkerCorrdinate(marker: toMarker, at: coordinate)
-            toLocation = coordinate
             toTextField.text = "\(coordinate.latitude) \(coordinate.latitude)"
         }
+    }
+}
+
+extension MapViewController: UITextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        clear = true
+        presenter.textFieldShouldClear(with: TextFieldTag(rawValue: textField.tag))
+        return true
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if clear == false {
+            presenter.editingDidBegin(with: TextFieldTag(rawValue: textField.tag))
+        }
+        clear = false
+        return false
     }
 }
