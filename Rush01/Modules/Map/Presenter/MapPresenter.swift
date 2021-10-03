@@ -85,8 +85,10 @@ class MapPresenter: ViewToPresenterMapProtocol {
         switch tag {
         case .from:
             view.clearFrom()
+            fromMarkerLocation = nil
         case .to:
             view.clearTo()
+            toMarkerLocation = nil
         default:
             break
         }
