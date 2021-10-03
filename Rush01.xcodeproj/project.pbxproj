@@ -7,28 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B43AA3A2708820900F8E5C9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B43AA392708820900F8E5C9 /* SearchViewController.swift */; };
 		3B43AA3C27088A6F00F8E5C9 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B43AA3B27088A6F00F8E5C9 /* Models.swift */; };
 		3B9E0B522708788200C6B89C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E0B512708788200C6B89C /* AppDelegate.swift */; };
 		3B9E0B542708788200C6B89C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E0B532708788200C6B89C /* SceneDelegate.swift */; };
-		3B9E0B562708788200C6B89C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E0B552708788200C6B89C /* ViewController.swift */; };
 		3B9E0B592708788200C6B89C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B9E0B572708788200C6B89C /* Main.storyboard */; };
 		3B9E0B5B2708788400C6B89C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B9E0B5A2708788400C6B89C /* Assets.xcassets */; };
 		3B9E0B5E2708788400C6B89C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B9E0B5C2708788400C6B89C /* LaunchScreen.storyboard */; };
+		3E3A91872709DABB000B9326 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A916E2709DABB000B9326 /* CellModel.swift */; };
+		3E3A91882709DABB000B9326 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A916F2709DABB000B9326 /* Cell.swift */; };
+		3E3A91892709DABB000B9326 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91712709DABB000B9326 /* SectionModel.swift */; };
+		3E3A918A2709DABB000B9326 /* TableViewContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91722709DABB000B9326 /* TableViewContract.swift */; };
+		3E3A918B2709DABB000B9326 /* ModelRepresentableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91732709DABB000B9326 /* ModelRepresentableProtocol.swift */; };
+		3E3A918C2709DABB000B9326 /* Rush01Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91752709DABB000B9326 /* Rush01Contract.swift */; };
+		3E3A918D2709DABB000B9326 /* UIWindow+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91772709DABB000B9326 /* UIWindow+Ext.swift */; };
+		3E3A918E2709DABB000B9326 /* MapContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A917B2709DABB000B9326 /* MapContract.swift */; };
+		3E3A918F2709DABB000B9326 /* MapAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A917D2709DABB000B9326 /* MapAssembly.swift */; };
+		3E3A91902709DABB000B9326 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A917F2709DABB000B9326 /* MapPresenter.swift */; };
+		3E3A91912709DABB000B9326 /* MapPresenterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91802709DABB000B9326 /* MapPresenterDataSource.swift */; };
+		3E3A91922709DABB000B9326 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91822709DABB000B9326 /* MapViewController.swift */; };
+		3E3A91932709DABB000B9326 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91842709DABB000B9326 /* MapInteractor.swift */; };
+		3E3A91942709DABB000B9326 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A91862709DABB000B9326 /* MapRouter.swift */; };
 		C4EA790C0F2D6FF904BC3DF6 /* Pods_Rush01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9974B1E39159F31F132C2D63 /* Pods_Rush01.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B43AA392708820900F8E5C9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3B43AA3B27088A6F00F8E5C9 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		3B9E0B4E2708788200C6B89C /* Rush01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rush01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B9E0B512708788200C6B89C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B9E0B532708788200C6B89C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3B9E0B552708788200C6B89C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3B9E0B582708788200C6B89C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B9E0B5A2708788400C6B89C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B9E0B5D2708788400C6B89C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B9E0B5F2708788400C6B89C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E3A916E2709DABB000B9326 /* CellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
+		3E3A916F2709DABB000B9326 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		3E3A91712709DABB000B9326 /* SectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		3E3A91722709DABB000B9326 /* TableViewContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewContract.swift; sourceTree = "<group>"; };
+		3E3A91732709DABB000B9326 /* ModelRepresentableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelRepresentableProtocol.swift; sourceTree = "<group>"; };
+		3E3A91752709DABB000B9326 /* Rush01Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rush01Contract.swift; sourceTree = "<group>"; };
+		3E3A91772709DABB000B9326 /* UIWindow+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Ext.swift"; sourceTree = "<group>"; };
+		3E3A917B2709DABB000B9326 /* MapContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContract.swift; sourceTree = "<group>"; };
+		3E3A917D2709DABB000B9326 /* MapAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAssembly.swift; sourceTree = "<group>"; };
+		3E3A917F2709DABB000B9326 /* MapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		3E3A91802709DABB000B9326 /* MapPresenterDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPresenterDataSource.swift; sourceTree = "<group>"; };
+		3E3A91822709DABB000B9326 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		3E3A91842709DABB000B9326 /* MapInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
+		3E3A91862709DABB000B9326 /* MapRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
 		60B966BB186A811EEDE017C6 /* Pods-Rush01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rush01.debug.xcconfig"; path = "Target Support Files/Pods-Rush01/Pods-Rush01.debug.xcconfig"; sourceTree = "<group>"; };
 		71F9797B732B5C5A0707DFA8 /* Pods-Rush01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rush01.release.xcconfig"; path = "Target Support Files/Pods-Rush01/Pods-Rush01.release.xcconfig"; sourceTree = "<group>"; };
 		9974B1E39159F31F132C2D63 /* Pods_Rush01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rush01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,17 +91,165 @@
 		3B9E0B502708788200C6B89C /* Rush01 */ = {
 			isa = PBXGroup;
 			children = (
+				3E3A916B2709DABB000B9326 /* Components */,
+				3E3A91742709DABB000B9326 /* Contract */,
+				3E3A916A2709DABB000B9326 /* Entities */,
+				3E3A91762709DABB000B9326 /* Extentions */,
+				3E3A91782709DABB000B9326 /* Modules */,
+				3E3A91692709DABB000B9326 /* Services */,
+				3E3A91952709DB80000B9326 /* SupportedFiles */,
+			);
+			path = Rush01;
+			sourceTree = "<group>";
+		};
+		3E3A91692709DABB000B9326 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3E3A916A2709DABB000B9326 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				3B43AA3B27088A6F00F8E5C9 /* Models.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		3E3A916B2709DABB000B9326 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A916C2709DABB000B9326 /* UITableViewComponents */,
+				3E3A91732709DABB000B9326 /* ModelRepresentableProtocol.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3E3A916C2709DABB000B9326 /* UITableViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A916D2709DABB000B9326 /* Cells */,
+				3E3A91702709DABB000B9326 /* Sections */,
+				3E3A91722709DABB000B9326 /* TableViewContract.swift */,
+			);
+			path = UITableViewComponents;
+			sourceTree = "<group>";
+		};
+		3E3A916D2709DABB000B9326 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A916E2709DABB000B9326 /* CellModel.swift */,
+				3E3A916F2709DABB000B9326 /* Cell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		3E3A91702709DABB000B9326 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A91712709DABB000B9326 /* SectionModel.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		3E3A91742709DABB000B9326 /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A91752709DABB000B9326 /* Rush01Contract.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
+		3E3A91762709DABB000B9326 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A91772709DABB000B9326 /* UIWindow+Ext.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		3E3A91782709DABB000B9326 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A91792709DABB000B9326 /* Map */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		3E3A91792709DABB000B9326 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A917A2709DABB000B9326 /* Contract */,
+				3E3A917C2709DABB000B9326 /* Assembly */,
+				3E3A917E2709DABB000B9326 /* Presenter */,
+				3E3A91812709DABB000B9326 /* View */,
+				3E3A91832709DABB000B9326 /* Interactor */,
+				3E3A91852709DABB000B9326 /* Router */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		3E3A917A2709DABB000B9326 /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A917B2709DABB000B9326 /* MapContract.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
+		3E3A917C2709DABB000B9326 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A917D2709DABB000B9326 /* MapAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		3E3A917E2709DABB000B9326 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A917F2709DABB000B9326 /* MapPresenter.swift */,
+				3E3A91802709DABB000B9326 /* MapPresenterDataSource.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3E3A91812709DABB000B9326 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3B9E0B572708788200C6B89C /* Main.storyboard */,
+				3E3A91822709DABB000B9326 /* MapViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3E3A91832709DABB000B9326 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A91842709DABB000B9326 /* MapInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		3E3A91852709DABB000B9326 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A91862709DABB000B9326 /* MapRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		3E3A91952709DB80000B9326 /* SupportedFiles */ = {
+			isa = PBXGroup;
+			children = (
 				3B9E0B512708788200C6B89C /* AppDelegate.swift */,
 				3B9E0B532708788200C6B89C /* SceneDelegate.swift */,
-				3B9E0B552708788200C6B89C /* ViewController.swift */,
-				3B9E0B572708788200C6B89C /* Main.storyboard */,
 				3B9E0B5A2708788400C6B89C /* Assets.xcassets */,
 				3B9E0B5C2708788400C6B89C /* LaunchScreen.storyboard */,
 				3B9E0B5F2708788400C6B89C /* Info.plist */,
-				3B43AA392708820900F8E5C9 /* SearchViewController.swift */,
-				3B43AA3B27088A6F00F8E5C9 /* Models.swift */,
 			);
-			path = Rush01;
+			path = SupportedFiles;
 			sourceTree = "<group>";
 		};
 		C648AD9888999FEF94AF60BC /* Pods */ = {
@@ -229,11 +401,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B9E0B562708788200C6B89C /* ViewController.swift in Sources */,
 				3B9E0B522708788200C6B89C /* AppDelegate.swift in Sources */,
-				3B43AA3A2708820900F8E5C9 /* SearchViewController.swift in Sources */,
+				3E3A91902709DABB000B9326 /* MapPresenter.swift in Sources */,
+				3E3A918F2709DABB000B9326 /* MapAssembly.swift in Sources */,
+				3E3A918E2709DABB000B9326 /* MapContract.swift in Sources */,
+				3E3A91882709DABB000B9326 /* Cell.swift in Sources */,
+				3E3A91892709DABB000B9326 /* SectionModel.swift in Sources */,
+				3E3A91942709DABB000B9326 /* MapRouter.swift in Sources */,
+				3E3A91912709DABB000B9326 /* MapPresenterDataSource.swift in Sources */,
+				3E3A91932709DABB000B9326 /* MapInteractor.swift in Sources */,
+				3E3A918A2709DABB000B9326 /* TableViewContract.swift in Sources */,
 				3B9E0B542708788200C6B89C /* SceneDelegate.swift in Sources */,
+				3E3A918D2709DABB000B9326 /* UIWindow+Ext.swift in Sources */,
 				3B43AA3C27088A6F00F8E5C9 /* Models.swift in Sources */,
+				3E3A918C2709DABB000B9326 /* Rush01Contract.swift in Sources */,
+				3E3A918B2709DABB000B9326 /* ModelRepresentableProtocol.swift in Sources */,
+				3E3A91872709DABB000B9326 /* CellModel.swift in Sources */,
+				3E3A91922709DABB000B9326 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +567,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKXRU56R89;
-				INFOPLIST_FILE = Rush01/Info.plist;
+				INFOPLIST_FILE = Rush01/SupportedFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -403,7 +587,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKXRU56R89;
-				INFOPLIST_FILE = Rush01/Info.plist;
+				INFOPLIST_FILE = Rush01/SupportedFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

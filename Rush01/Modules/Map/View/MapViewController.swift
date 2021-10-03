@@ -1,8 +1,9 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  Rush01
 //
 //  Created by Маргарита Морозова on 02.10.2021.
+//  Updated by out-nazarov2-ms on 03.10.2021.
 //
 
 import Alamofire
@@ -11,25 +12,50 @@ import GooglePlaces
 import SwiftyJSON
 import UIKit
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
+
+    // MARK: - Properties
+    var presenter: ViewToPresenterMapProtocol!
+
+//    // MARK: - Lifecycle Methods
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setupUI()
+//        presenter?.viewDidLoad()
+//    }
+//
+//    private func setupUI() {
+//        addSubviews()
+//        setupConstraints()
+//    }
+//
+//    private func addSubviews() {
+//
+//    }
+//
+//    private func setupConstraints() {
+//
+//    }
+
+
 
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
     @IBOutlet weak var mapView: UIView!
-    
+
     var fromLocation = CLLocationCoordinate2D()
     var toLocation = CLLocationCoordinate2D()
     var currentLocation: CLLocationCoordinate2D?
     var selectedLocation = toFromLocation.fromLocation
-    
+
     let fromMarker = GMSMarker()
     let toMarker = GMSMarker()
-    
+
     var googleMapView = GMSMapView()
     var camera = GMSCameraPosition()
-    
+
     var polyline = GMSPolyline()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // camera это положение куда смотрит камера на карте, чем больше zoom, тем ближе
@@ -39,31 +65,31 @@ class ViewController: UIViewController {
         googleMapView.settings.myLocationButton = true
         googleMapView.isMyLocationEnabled = true
         mapView.addSubview(googleMapView)
-        
+
         fromMarker.opacity = 0
         toMarker.opacity = 0
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //совмещение фрэйма гугловской карты и вьюхи в сториборде
         googleMapView.frame = mapView.frame
     }
-    
+
     // Очистка позиции from
     @IBAction func fromClearButtonAction(_ sender: UIButton) {
         fromTextField.text = ""
         polyline.map = nil
         fromMarker.opacity = 0
     }
-    
+
     // Очистка позиции to
     @IBAction func toClearButtonAction(_ sender: UIButton) {
         toTextField.text = ""
         polyline.map = nil
         toMarker.opacity = 0
     }
-    
+
     // Установка моей геопозиции в From
     @IBAction func myLocationForFrom(_ sender: UIButton) {
         let myLocation = googleMapView.myLocation!.coordinate
@@ -78,7 +104,7 @@ class ViewController: UIViewController {
         fromMarker.map = googleMapView
         googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
     }
-    
+
     // Установка моей геопозиции в To
     @IBAction func myLocationForTo(_ sender: UIButton) {
         let myLocation = googleMapView.myLocation!.coordinate
@@ -93,7 +119,7 @@ class ViewController: UIViewController {
         toMarker.map = googleMapView
         googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
     }
-    
+
 //    Меняю from и to местами
     @IBAction func swapToFromButtonAction(_ sender: UIButton) {
         let newLocation = fromLocation
@@ -105,21 +131,21 @@ class ViewController: UIViewController {
         fromTextField.text = toTextField.text
         toTextField.text = newTextLocation
     }
-    
+
     @IBAction func fromTextFieldAction(_ sender: UITextField) {
         let autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
         selectedLocation = .fromLocation
         self.present(autoCompleteViewController, animated: true, completion: nil)
     }
-    
+
     @IBAction func toTextFieldAction(_ sender: UITextField) {
         let autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
         selectedLocation = .toLocation
         self.present(autoCompleteViewController, animated: true, completion: nil)
     }
-    
+
     @IBAction func getRouteButtonAction(_ sender: UIButton) {
         if fromMarker.opacity == 0 || toMarker.opacity == 0 {
             return
@@ -142,7 +168,7 @@ class ViewController: UIViewController {
                 }
                 return
             }
-            
+
             do {
                 let jsonData = try JSON(data: data)
                 let routes = jsonData["routes"].arrayValue
@@ -170,11 +196,15 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: GMSAutocompleteViewControllerDelegate {
+extension MapViewController: PresenterToViewMapProtocol{
+    
+}
+
+extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print("Error \(error)")
     }
-    
+
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if selectedLocation == .fromLocation {
             fromTextField.text = "\(String(describing: place.formattedAddress!))"
