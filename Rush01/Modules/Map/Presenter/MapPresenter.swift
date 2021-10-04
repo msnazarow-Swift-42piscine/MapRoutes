@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import GoogleMaps
+import GooglePlaces
 
 enum ButtonTag: Int {
     case getRoute = 0
@@ -33,6 +34,7 @@ class MapPresenter: ViewToPresenterMapProtocol {
 
     var fromMarkerLocation: CLLocationCoordinate2D!
     var toMarkerLocation: CLLocationCoordinate2D!
+    var selectedLocation: ToFromLocation = .from
 
     // MARK: Init
     init(view: PresenterToViewMapProtocol,
@@ -54,13 +56,33 @@ class MapPresenter: ViewToPresenterMapProtocol {
         case .getRoute:
             getRoute()
         case .mylocationFrom:
-            view.myLocationFrom()
+            guard let myLocation = view.getMyLocation() else { break }
+            if toMarkerLocation == myLocation {
+                view.setTextFieldText(with: .to, "")
+                view.hideMarker(title: "To")
+                toMarkerLocation = nil
+            }
+            view.setTextFieldText(with: .from, .myLocation)
+            view.addMarker(title: .from, at: myLocation)
+            fromMarkerLocation = myLocation
+            view.zoom(to: myLocation)
+            view.clearRoute()
         case .mylocationTo:
-            view.myLocationTo()
+            guard let myLocation = view.getMyLocation() else { break }
+            if fromMarkerLocation == myLocation {
+                view.setTextFieldText(with: .from, "")
+                view.hideMarker(title: "From")
+                fromMarkerLocation = nil
+            }
+            view.setTextFieldText(with: .to, .myLocation)
+            view.addMarker(title: .to, at: myLocation)
+            toMarkerLocation = myLocation
+            view.zoom(to: myLocation)
+            view.clearRoute()
         case .clearFrom:
-            view.clearFrom()
+            view.setTextFieldText(with: .from, "")
         case .clearTo:
-            view.clearTo()
+            view.setTextFieldText(with: .to, "")
         case .swapToFrom:
             view.swapToFrom()
         default:
@@ -73,7 +95,7 @@ class MapPresenter: ViewToPresenterMapProtocol {
             interactor.getRoute(from: fromMarkerLocation, to: toMarkerLocation) { result in
                 switch result {
                 case .success(let path):
-                    self.view.addPolyline(with: path)
+                    self.view.addRoute(with: path)
                 case .failure:
                     self.view.showAlert()
                 }
@@ -82,12 +104,14 @@ class MapPresenter: ViewToPresenterMapProtocol {
     }
 
     func textFieldShouldClear(with tag: TextFieldTag!) {
+        view.setTextFieldText(with: tag, "")
+        view.clearRoute()
         switch tag {
         case .from:
-            view.clearFrom()
+            view.hideMarker(title: .from)
             fromMarkerLocation = nil
         case .to:
-            view.clearTo()
+            view.hideMarker(title: .to)
             toMarkerLocation = nil
         default:
             break
@@ -97,30 +121,58 @@ class MapPresenter: ViewToPresenterMapProtocol {
     func editingDidBegin(with tag: TextFieldTag!) {
         switch tag {
         case .from:
-            view.openAutocomplete(with: .fromLocation)
+            selectedLocation = .from
+            view.openAutocomplete(with: .from)
         case .to:
-            view.openAutocomplete(with: .toLocation)
+            selectedLocation = .to
+            view.openAutocomplete(with: .to)
         default:
             break
         }
     }
 
-    func didTapMarker(_ marker: GMSMarker) {
-        if marker.position == fromMarkerLocation {
+    func didTapMarker(title: String) {
+        view.hideMarker(title: title)
+        switch title {
+        case .from:
             fromMarkerLocation = nil
-        } else if marker.position == toMarkerLocation {
+        case .to:
             toMarkerLocation = nil
+        default: break
         }
-        view.hideMarker(marker)
+        view.clearRoute()
     }
 
     func didLongPressAt(_ coordinate: CLLocationCoordinate2D) {
         if fromMarkerLocation == nil {
             fromMarkerLocation = coordinate
+            view.addMarker(title: "From" , at: fromMarkerLocation)
+            view.setTextFieldText(with: .from, "\(coordinate.latitude) \(coordinate.latitude)")
         } else {
             toMarkerLocation = coordinate
+            view.addMarker(title: "To" , at: toMarkerLocation)
+            view.setTextFieldText(with: .to, "\(coordinate.latitude) \(coordinate.latitude)")
         }
-        view.addMarkerAt(coordinate)
+        view.clearRoute()
+    }
+
+    func didAutocompleteWith(place: GMSPlace) {
+        switch selectedLocation {
+        case .from:
+            if let address = place.formattedAddress {
+                view.setTextFieldText(with: .from, address)
+            }
+            fromMarkerLocation = place.coordinate
+            view.addMarker(title: .from, at: place.coordinate)
+        case .to:
+            if let address = place.formattedAddress {
+                view.setTextFieldText(with: .to, address)
+            }
+            toMarkerLocation = place.coordinate
+            view.addMarker(title: .to, at: place.coordinate)
+        }
+        view.zoom(to: place.coordinate)
+//        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -8,19 +8,22 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 
 // MARK: View Output (Presenter -> View)
 protocol PresenterToViewMapProtocol: AnyObject {
-    func clearFrom()
-    func clearTo()
-    func myLocationFrom()
-    func myLocationTo()
+    var fromLocation: CLLocationCoordinate2D { get }
+    var toLocation: CLLocationCoordinate2D { get }
     func swapToFrom()
-    func openAutocomplete(with location: toFromLocation)
-    func addPolyline(with path: GMSPath)
+    func openAutocomplete(with location: ToFromLocation)
+    func addRoute(with path: GMSPath)
     func showAlert()
-    func hideMarker(_ marker: GMSMarker)
-    func addMarkerAt(_ location: CLLocationCoordinate2D)
+    func addMarker(title: String, at location: CLLocationCoordinate2D)
+    func getMyLocation() -> CLLocationCoordinate2D?
+    func setTextFieldText(with tag: TextFieldTag, _ text: String)
+    func hideMarker(title: String)
+    func zoom(to location: CLLocationCoordinate2D)
+    func clearRoute()
 }
 
 
@@ -34,8 +37,9 @@ protocol ViewToPresenterMapProtocol: AnyObject {
     func buttonDidTapped(with tag: ButtonTag!)
     func editingDidBegin(with tag: TextFieldTag!)
     func textFieldShouldClear(with tag: TextFieldTag!)
-    func didTapMarker(_ marker: GMSMarker)
+    func didTapMarker(title: String)
     func didLongPressAt(_ coordinate: CLLocationCoordinate2D)
+    func didAutocompleteWith(place: GMSPlace)
 }
 
 

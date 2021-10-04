@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum toFromLocation {
-    case fromLocation
-    case toLocation
+enum ToFromLocation {
+    case from
+    case to
 }

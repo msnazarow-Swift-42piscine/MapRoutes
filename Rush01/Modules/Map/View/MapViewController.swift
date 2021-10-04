@@ -24,19 +24,21 @@ class MapViewController: UIViewController {
 //    @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var getRouteButton: UIButton!
 
-    var fromLocation = CLLocationCoordinate2D()
-    var toLocation = CLLocationCoordinate2D()
-    var currentLocation: CLLocationCoordinate2D?
-    var selectedLocation = toFromLocation.fromLocation
+    var fromLocation: CLLocationCoordinate2D { fromMarker.position }
+    var toLocation: CLLocationCoordinate2D { toMarker.position }
 
+    var currentLocation: CLLocationCoordinate2D?
+ 
     let fromMarker: GMSMarker = {
         let marker = GMSMarker()
+        marker.title = .from
         marker.opacity = 0
         return marker
     }()
 
     let toMarker: GMSMarker = {
         let marker = GMSMarker()
+        marker.title = .to
         marker.opacity = 0
         return marker
     }()
@@ -57,7 +59,12 @@ class MapViewController: UIViewController {
         return camera
     }()
 
-    var polyline = GMSPolyline()
+    lazy var polyline: GMSPolyline = {
+        let polyline = GMSPolyline()
+        polyline.strokeColor = .systemGreen
+        polyline.strokeWidth = 5
+        return polyline
+    }()
 
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
@@ -100,50 +107,42 @@ extension MapViewController: PresenterToViewMapProtocol{
     // Очистка позиции from
     func clearFrom(){
         fromTextField.text = ""
-        polyline.map = nil
-        fromMarker.opacity = 0
     }
 
     // Очистка позиции to
     func clearTo(){
         toTextField.text = ""
-        polyline.map = nil
-        toMarker.opacity = 0
+    }
+
+    func getMyLocation() -> CLLocationCoordinate2D? {
+        googleMapView.myLocation?.coordinate
     }
 
     // Установка моей геопозиции в From
-    func myLocationFrom(){
-        guard let myLocation = googleMapView.myLocation?.coordinate else { return }
-        if  toTextField.text == "My location" {
-            toTextField.text = ""
-            toMarker.opacity = 0
-            presenter.toMarkerLocation = nil
-        }
-        fromTextField.text = "My location"
-        fromMarker.position = myLocation
-        fromMarker.opacity = 1
-        fromMarker.map = googleMapView
-        presenter.fromMarkerLocation = myLocation
-        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
-    }
+//    func myLocationFrom(){
+//        fromTextField.text = .myLocation
+//        fromMarker.position = myLocation
+//        fromMarker.opacity = 1
+//        fromMarker.map = googleMapView
+//        presenter.fromMarkerLocation = myLocation
+//        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
+//    }
 
     // Установка моей геопозиции в To
-    func myLocationTo() {
-        guard let myLocation = googleMapView.myLocation?.coordinate else { return }
-        if  fromTextField.text == "My location" {
-            fromTextField.text = ""
-            fromMarker.opacity = 0
-            presenter.fromMarkerLocation = nil
-        }
-        toTextField.text = "My location"
-        toMarker.position = myLocation
-        toMarker.opacity = 1
-        toMarker.map = googleMapView
-        polyline.map = nil
-        polyline.map = nil
-        presenter.toMarkerLocation = myLocation
-        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
-    }
+//    func myLocationTo() {
+//        guard let myLocation = googleMapView.myLocation?.coordinate else { return }
+//        if  fromTextField.text == .myLocation {
+//            fromTextField.text = ""
+//            fromMarker.opacity = 0
+//            presenter.fromMarkerLocation = nil
+//        }
+//        toTextField.text = .myLocation
+//        toMarker.position = myLocation
+//        toMarker.opacity = 1
+//        toMarker.map = googleMapView
+//        presenter.toMarkerLocation = myLocation
+//        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
+//    }
 
 //    Меняю from и to местами
     func swapToFrom() {
@@ -153,19 +152,15 @@ extension MapViewController: PresenterToViewMapProtocol{
     }
 
 
-    func openAutocomplete(with location: toFromLocation) {
+    func openAutocomplete(with location: ToFromLocation) {
         let autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
-        selectedLocation = location
         self.present(autoCompleteViewController, animated: true, completion: nil)
     }
 
-    func addPolyline(with path: GMSPath) {
-        self.polyline.map = nil
-        self.polyline = GMSPolyline.init(path: path)
-        self.polyline.strokeColor = .systemGreen
-        self.polyline.strokeWidth = 5
-        self.polyline.map = self.googleMapView
+    func addRoute(with path: GMSPath) {
+        polyline.map = self.googleMapView
+        polyline.path = path
         DispatchQueue.main.async {
           let bounds = GMSCoordinateBounds(path: path)
           self.googleMapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
@@ -181,19 +176,25 @@ extension MapViewController: PresenterToViewMapProtocol{
         }
     }
 
-    func hideMarker(_ marker: GMSMarker) {
-        marker.opacity = 0
+    func hideMarker(title: String) {
+        [fromMarker, toMarker].first{ $0.title == title }?.opacity = 0
+    }
+
+    func addMarker(title: String, at location: CLLocationCoordinate2D) {
+        guard let marker = [fromMarker, toMarker].first(where: {$0.title == title }) else { return }
+        addMarkerCorrdinate(marker: marker, at: location)
+    }
+
+    func clearRoute(){
         polyline.map = nil
     }
 
-    func addMarkerAt(_ location: CLLocationCoordinate2D) {
-        if (fromMarker.opacity == 0) {
-            addMarkerCorrdinate(marker: fromMarker, at: location)
-            fromTextField.text = "\(location.latitude) \(location.latitude)"
-        } else {
-            addMarkerCorrdinate(marker: toMarker, at: location)
-            toTextField.text = "\(location.latitude) \(location.latitude)"
-        }
+    func setTextFieldText(with tag: TextFieldTag, _ text: String) {
+        [toTextField, fromTextField].first{ $0.tag == tag.rawValue }?.text = text
+    }
+
+    func zoom(to location: CLLocationCoordinate2D) {
+        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: location, zoom: 15.0))
     }
 }
 
@@ -204,18 +205,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     }
 
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        switch selectedLocation {
-        case .fromLocation:
-            fromTextField.text = "\(String(describing: place.formattedAddress!))"
-            presenter.fromMarkerLocation = place.coordinate
-            addMarkerCorrdinate(marker: fromMarker, at: place.coordinate)
-        case .toLocation:
-            toTextField.text = "\(String(describing: place.formattedAddress!))"
-            presenter.toMarkerLocation = place.coordinate
-            addMarkerCorrdinate(marker: toMarker, at: place.coordinate)
-        }
-        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 15.0))
-        self.dismiss(animated: true, completion: nil)
+        presenter.didAutocompleteWith(place: place)
     }
 
     private func addMarkerCorrdinate(marker: GMSMarker, at location: CLLocationCoordinate2D) {
@@ -233,7 +223,8 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
 
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        presenter.didTapMarker(marker)
+        guard let title = marker.title else { return true }
+        presenter.didTapMarker(title: title)
         return true
     }
 
