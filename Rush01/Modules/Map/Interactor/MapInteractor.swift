@@ -17,9 +17,6 @@ enum LocationError: Error {
 
 class MapInteractor: PresenterToInteractorMapProtocol {
     func getRoute(from fromLocation: CLLocationCoordinate2D, to toLocation: CLLocationCoordinate2D, complition: @escaping (Result<GMSPath, Error>) -> Void) {
-//       if fromMarker.opacity == 0 || toMarker.opacity == 0 {
-//           return
-//       }
         let sourceLocation = "\(fromLocation.latitude),\(fromLocation.longitude)"
         let destinationLocation = "\(toLocation.latitude),\(toLocation.longitude)"
 

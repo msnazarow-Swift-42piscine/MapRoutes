@@ -12,26 +12,23 @@ import GooglePlaces
 
 // MARK: View Output (Presenter -> View)
 protocol PresenterToViewMapProtocol: AnyObject {
-    var fromLocation: CLLocationCoordinate2D { get }
-    var toLocation: CLLocationCoordinate2D { get }
     func swapToFrom()
-    func openAutocomplete(with location: ToFromLocation)
-    func addRoute(with path: GMSPath)
     func showAlert()
-    func addMarker(title: String, at location: CLLocationCoordinate2D)
-    func getMyLocation() -> CLLocationCoordinate2D?
     func setTextFieldText(with tag: TextFieldTag, _ text: String)
-    func hideMarker(title: String)
+    func addMarker(title: String, at location: CLLocationCoordinate2D)
+    func removeMarker(title: String)
+    func addRoute(with path: GMSPath)
+    func removeRoute()
     func zoom(to location: CLLocationCoordinate2D)
-    func clearRoute()
+    func getMyLocation() -> CLLocationCoordinate2D?
 }
 
 
 // MARK: View Input (View -> Presenter)
 protocol ViewToPresenterMapProtocol: AnyObject {
     var dataSource:PresenterToDataSourceMapProtocol { get }
-    var fromMarkerLocation: CLLocationCoordinate2D! { get set}
-    var toMarkerLocation: CLLocationCoordinate2D!  { get set}
+//    var fromMarkerLocation: CLLocationCoordinate2D! { get set}
+//    var toMarkerLocation: CLLocationCoordinate2D!  { get set}
 
     func viewDidLoad()
     func buttonDidTapped(with tag: ButtonTag!)
@@ -50,7 +47,7 @@ protocol PresenterToInteractorMapProtocol: AnyObject {
 
 // MARK: Presenter Output (Presenter -> Router)
 protocol PresenterToRouterMapProtocol: AnyObject {
-    
+    func openAutocomplete(with location: ToFromLocation)
 }
 
 // MARK: Presenter Output (Presenter -> DataSource)

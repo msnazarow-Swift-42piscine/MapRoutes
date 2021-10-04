@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import GooglePlaces
 
 class MapRouter: PresenterToRouterMapProtocol {
+    typealias AutoCompleteViewController = UIViewController & GMSAutocompleteViewControllerDelegate
 
     // MARK: - Properties
-    weak var view: UIViewController!
+    weak var view: AutoCompleteViewController!
 
     // MARK: - Init
-    init(view: UIViewController) {
+    init(view: AutoCompleteViewController) {
         self.view = view
+    }
+
+    func openAutocomplete(with location: ToFromLocation) {
+        let autoCompleteViewController = GMSAutocompleteViewController()
+        autoCompleteViewController.delegate = view
+        view.present(autoCompleteViewController, animated: true, completion: nil)
     }
     
 }

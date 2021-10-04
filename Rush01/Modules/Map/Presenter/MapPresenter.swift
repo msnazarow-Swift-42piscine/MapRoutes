@@ -59,32 +59,33 @@ class MapPresenter: ViewToPresenterMapProtocol {
             guard let myLocation = view.getMyLocation() else { break }
             if toMarkerLocation == myLocation {
                 view.setTextFieldText(with: .to, "")
-                view.hideMarker(title: "To")
+                view.removeMarker(title: "To")
                 toMarkerLocation = nil
             }
             view.setTextFieldText(with: .from, .myLocation)
             view.addMarker(title: .from, at: myLocation)
             fromMarkerLocation = myLocation
             view.zoom(to: myLocation)
-            view.clearRoute()
+            view.removeRoute()
         case .mylocationTo:
             guard let myLocation = view.getMyLocation() else { break }
             if fromMarkerLocation == myLocation {
                 view.setTextFieldText(with: .from, "")
-                view.hideMarker(title: "From")
+                view.removeMarker(title: "From")
                 fromMarkerLocation = nil
             }
             view.setTextFieldText(with: .to, .myLocation)
             view.addMarker(title: .to, at: myLocation)
             toMarkerLocation = myLocation
             view.zoom(to: myLocation)
-            view.clearRoute()
+            view.removeRoute()
         case .clearFrom:
             view.setTextFieldText(with: .from, "")
         case .clearTo:
             view.setTextFieldText(with: .to, "")
         case .swapToFrom:
             view.swapToFrom()
+            swap(&fromMarkerLocation, &toMarkerLocation)
         default:
             break
         }
@@ -105,13 +106,13 @@ class MapPresenter: ViewToPresenterMapProtocol {
 
     func textFieldShouldClear(with tag: TextFieldTag!) {
         view.setTextFieldText(with: tag, "")
-        view.clearRoute()
+        view.removeRoute()
         switch tag {
         case .from:
-            view.hideMarker(title: .from)
+            view.removeMarker(title: .from)
             fromMarkerLocation = nil
         case .to:
-            view.hideMarker(title: .to)
+            view.removeMarker(title: .to)
             toMarkerLocation = nil
         default:
             break
@@ -122,17 +123,17 @@ class MapPresenter: ViewToPresenterMapProtocol {
         switch tag {
         case .from:
             selectedLocation = .from
-            view.openAutocomplete(with: .from)
+            router.openAutocomplete(with: .from)
         case .to:
             selectedLocation = .to
-            view.openAutocomplete(with: .to)
+            router.openAutocomplete(with: .to)
         default:
             break
         }
     }
 
     func didTapMarker(title: String) {
-        view.hideMarker(title: title)
+        view.removeMarker(title: title)
         switch title {
         case .from:
             fromMarkerLocation = nil
@@ -140,7 +141,7 @@ class MapPresenter: ViewToPresenterMapProtocol {
             toMarkerLocation = nil
         default: break
         }
-        view.clearRoute()
+        view.removeRoute()
     }
 
     func didLongPressAt(_ coordinate: CLLocationCoordinate2D) {
@@ -153,7 +154,7 @@ class MapPresenter: ViewToPresenterMapProtocol {
             view.addMarker(title: "To" , at: toMarkerLocation)
             view.setTextFieldText(with: .to, "\(coordinate.latitude) \(coordinate.latitude)")
         }
-        view.clearRoute()
+        view.removeRoute()
     }
 
     func didAutocompleteWith(place: GMSPlace) {
@@ -172,7 +173,6 @@ class MapPresenter: ViewToPresenterMapProtocol {
             view.addMarker(title: .to, at: place.coordinate)
         }
         view.zoom(to: place.coordinate)
-//        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -17,29 +17,21 @@ class MapViewController: UIViewController {
     // MARK: - Properties
     var presenter: ViewToPresenterMapProtocol!
 
-    var clear: Bool!
-
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
-//    @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var getRouteButton: UIButton!
 
-    var fromLocation: CLLocationCoordinate2D { fromMarker.position }
-    var toLocation: CLLocationCoordinate2D { toMarker.position }
+    private var clear: Bool!
 
-    var currentLocation: CLLocationCoordinate2D?
- 
     let fromMarker: GMSMarker = {
         let marker = GMSMarker()
         marker.title = .from
-        marker.opacity = 0
         return marker
     }()
 
     let toMarker: GMSMarker = {
         let marker = GMSMarker()
         marker.title = .to
-        marker.opacity = 0
         return marker
     }()
 
@@ -66,6 +58,12 @@ class MapViewController: UIViewController {
         return polyline
     }()
 
+    let alertController: UIAlertController = {
+        let alert = UIAlertController(title: "", message: "Не удалось простроить маршрут", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        return alert
+    }()
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,66 +94,16 @@ class MapViewController: UIViewController {
     @IBAction func buttonDidTapped(_ sender: UIButton) {
         presenter.buttonDidTapped(with: ButtonTag(rawValue: sender.tag))
     }
-
-    @IBAction func editingDidBegin(_ sender: UITextField) {
-//        presenter.editingDidBegin(with: TextFieldTag(rawValue: sender.tag))
-    }
 }
 
 extension MapViewController: PresenterToViewMapProtocol{
-
-    // Очистка позиции from
-    func clearFrom(){
-        fromTextField.text = ""
-    }
-
-    // Очистка позиции to
-    func clearTo(){
-        toTextField.text = ""
-    }
-
     func getMyLocation() -> CLLocationCoordinate2D? {
         googleMapView.myLocation?.coordinate
     }
 
-    // Установка моей геопозиции в From
-//    func myLocationFrom(){
-//        fromTextField.text = .myLocation
-//        fromMarker.position = myLocation
-//        fromMarker.opacity = 1
-//        fromMarker.map = googleMapView
-//        presenter.fromMarkerLocation = myLocation
-//        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
-//    }
-
-    // Установка моей геопозиции в To
-//    func myLocationTo() {
-//        guard let myLocation = googleMapView.myLocation?.coordinate else { return }
-//        if  fromTextField.text == .myLocation {
-//            fromTextField.text = ""
-//            fromMarker.opacity = 0
-//            presenter.fromMarkerLocation = nil
-//        }
-//        toTextField.text = .myLocation
-//        toMarker.position = myLocation
-//        toMarker.opacity = 1
-//        toMarker.map = googleMapView
-//        presenter.toMarkerLocation = myLocation
-//        googleMapView.animate(to: GMSCameraPosition.camera(withTarget: myLocation, zoom: 15.0))
-//    }
-
-//    Меняю from и to местами
     func swapToFrom() {
         swap(&toMarker.position, &fromMarker.position)
         swap(&fromTextField.text, &toTextField.text)
-        swap(&presenter.fromMarkerLocation, &presenter.toMarkerLocation)
-    }
-
-
-    func openAutocomplete(with location: ToFromLocation) {
-        let autoCompleteViewController = GMSAutocompleteViewController()
-        autoCompleteViewController.delegate = self
-        self.present(autoCompleteViewController, animated: true, completion: nil)
     }
 
     func addRoute(with path: GMSPath) {
@@ -168,24 +116,22 @@ extension MapViewController: PresenterToViewMapProtocol{
     }
 
     func showAlert() {
-        let alertController = UIAlertController(title: "", message: "Не удалось простроить маршрут", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        alertController.addAction(cancelAction)
         DispatchQueue.main.async {
-            self.present(alertController, animated: true)
+            self.present(self.alertController, animated: true)
         }
     }
 
-    func hideMarker(title: String) {
-        [fromMarker, toMarker].first{ $0.title == title }?.opacity = 0
+    func removeMarker(title: String) {
+        [fromMarker, toMarker].first{ $0.title == title }?.map = nil
     }
 
     func addMarker(title: String, at location: CLLocationCoordinate2D) {
         guard let marker = [fromMarker, toMarker].first(where: {$0.title == title }) else { return }
-        addMarkerCorrdinate(marker: marker, at: location)
+        marker.position = location
+        marker.map = googleMapView
     }
 
-    func clearRoute(){
+    func removeRoute(){
         polyline.map = nil
     }
 
@@ -206,12 +152,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
 
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         presenter.didAutocompleteWith(place: place)
-    }
-
-    private func addMarkerCorrdinate(marker: GMSMarker, at location: CLLocationCoordinate2D) {
-        marker.position = location
-        marker.opacity = 1
-        marker.map = googleMapView
+        self.dismiss(animated: true, completion: nil)
     }
 
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {

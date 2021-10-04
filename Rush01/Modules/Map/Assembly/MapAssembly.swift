@@ -11,6 +11,8 @@ import UIKit
 enum MapAssembly{
     
     // MARK: Static methods
+//    typealias AutoCompleteViewController = UIViewController & GMSAutocompleteViewControllerDelegate
+
     static func createModule() -> UIViewController {
         let storyboard = UIStoryboard(name: "Map", bundle: nil)
         let viewController = storyboard.instantiateInitialViewController() as! MapViewController
