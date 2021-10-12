@@ -35,6 +35,8 @@ class MapPresenter: ViewToPresenterMapProtocol {
     var fromMarkerLocation: CLLocationCoordinate2D!
     var toMarkerLocation: CLLocationCoordinate2D!
     var selectedLocation: ToFromLocation = .from
+    var walk: Bool = false
+
 
     // MARK: Init
     init(view: PresenterToViewMapProtocol,
@@ -93,7 +95,7 @@ class MapPresenter: ViewToPresenterMapProtocol {
 
     private func getRoute(){
         if fromMarkerLocation != nil && toMarkerLocation != nil {
-            interactor.getRoute(from: fromMarkerLocation, to: toMarkerLocation) { result in
+            interactor.getRoute(from: fromMarkerLocation, to: toMarkerLocation, walk: walk) { result in
                 switch result {
                 case .success(let path):
                     self.view.addRoute(with: path)
@@ -173,6 +175,10 @@ class MapPresenter: ViewToPresenterMapProtocol {
             view.addMarker(title: .to, at: place.coordinate)
         }
         view.zoom(to: place.coordinate)
+    }
+
+    func switcherChanges(_ walk: Bool) {
+        self.walk = walk
     }
 }
 

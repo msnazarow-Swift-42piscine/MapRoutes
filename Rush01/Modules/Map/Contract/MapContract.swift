@@ -37,12 +37,13 @@ protocol ViewToPresenterMapProtocol: AnyObject {
     func didTapMarker(title: String)
     func didLongPressAt(_ coordinate: CLLocationCoordinate2D)
     func didAutocompleteWith(place: GMSPlace)
+    func switcherChanges(_ walk: Bool)
 }
 
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorMapProtocol: AnyObject {
-    func getRoute(from fromLocation: CLLocationCoordinate2D, to toLocation: CLLocationCoordinate2D, complition: @escaping (Result<GMSPath, Error>) -> Void)
+    func getRoute(from fromLocation: CLLocationCoordinate2D, to toLocation: CLLocationCoordinate2D, walk: Bool, complition: @escaping (Result<GMSPath, Error>) -> Void)
 }
 
 // MARK: Presenter Output (Presenter -> Router)

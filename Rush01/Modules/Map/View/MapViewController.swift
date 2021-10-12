@@ -63,6 +63,50 @@ class MapViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         return alert
     }()
+
+    let switcher: UISwitch = {
+        let switcher = UISwitch()
+        switcher.translatesAutoresizingMaskIntoConstraints = false
+        switcher.onTintColor = .clear
+        switcher.addTarget(self, action: #selector(switcherDidChange), for: .valueChanged)
+        return switcher
+    }()
+
+    let walkingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Walking"
+        return label
+    }()
+
+    let drivingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Driving"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    lazy var stack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [drivingLabel, switcher, walkingLabel])
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        effectView.translatesAutoresizingMaskIntoConstraints = false
+        effectView.layer.cornerRadius = 5
+        effectView.layer.borderColor = UIColor.black.cgColor
+        effectView.layer.borderWidth = 1
+        stack.spacing = 5
+        stack.addSubview(effectView)
+        stack.sendSubviewToBack(effectView)
+        NSLayoutConstraint.activate([
+            effectView.leadingAnchor.constraint(equalTo: stack.leadingAnchor, constant: -5),
+            effectView.trailingAnchor.constraint(equalTo: stack.trailingAnchor, constant: 5),
+            effectView.topAnchor.constraint(equalTo: stack.topAnchor, constant: -5),
+            effectView.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 5)
+        ])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
@@ -80,6 +124,7 @@ class MapViewController: UIViewController {
 
     private func addSubviews() {
         view.addSubview(googleMapView)
+        view.addSubview(stack)
     }
 
     private func setupConstraints(){
@@ -87,12 +132,18 @@ class MapViewController: UIViewController {
             googleMapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             googleMapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             googleMapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            googleMapView.bottomAnchor.constraint(equalTo: getRouteButton.topAnchor,constant: -5)
+            googleMapView.bottomAnchor.constraint(equalTo: getRouteButton.topAnchor, constant: -5),
+            stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            stack.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
         ])
     }
 
     @IBAction func buttonDidTapped(_ sender: UIButton) {
         presenter.buttonDidTapped(with: ButtonTag(rawValue: sender.tag))
+    }
+
+    @objc func switcherDidChange(_ sender: UISwitch) {
+        presenter.switcherChanges(switcher.isOn)
     }
 }
 

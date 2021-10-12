@@ -16,7 +16,7 @@ enum LocationError: Error {
 }
 
 class MapInteractor: PresenterToInteractorMapProtocol {
-    func getRoute(from fromLocation: CLLocationCoordinate2D, to toLocation: CLLocationCoordinate2D, complition: @escaping (Result<GMSPath, Error>) -> Void) {
+    func getRoute(from fromLocation: CLLocationCoordinate2D, to toLocation: CLLocationCoordinate2D, walk: Bool, complition: @escaping (Result<GMSPath, Error>) -> Void) {
         let sourceLocation = "\(fromLocation.latitude),\(fromLocation.longitude)"
         let destinationLocation = "\(toLocation.latitude),\(toLocation.longitude)"
 
@@ -28,7 +28,7 @@ class MapInteractor: PresenterToInteractorMapProtocol {
         urlComponents.queryItems = [
             URLQueryItem(name: "origin", value: sourceLocation),
             URLQueryItem(name: "destination", value: destinationLocation),
-            URLQueryItem(name: "mode", value: "driving"),
+            URLQueryItem(name: "mode", value: walk ? "walking" : "driving"),
             URLQueryItem(name: "key", value: "AIzaSyDxQKxlw1vUZXhmRHNaUSpVfAVUqjQEd0Y")
         ]
 
