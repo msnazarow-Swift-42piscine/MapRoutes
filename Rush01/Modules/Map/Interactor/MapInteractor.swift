@@ -20,7 +20,6 @@ class MapInteractor: PresenterToInteractorMapProtocol {
         let sourceLocation = "\(fromLocation.latitude),\(fromLocation.longitude)"
         let destinationLocation = "\(toLocation.latitude),\(toLocation.longitude)"
 
-        // url для запроса для получения маршрута между двумя точками
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "maps.googleapis.com"
@@ -31,9 +30,6 @@ class MapInteractor: PresenterToInteractorMapProtocol {
             URLQueryItem(name: "mode", value: walk ? "walking" : "driving"),
             URLQueryItem(name: "key", value: "AIzaSyDxQKxlw1vUZXhmRHNaUSpVfAVUqjQEd0Y")
         ]
-
-       // сам запрос
-
         AF.request(urlComponents.url!).responseJSON { (response) in
            guard let data = response.data else {
                if let error = response.error {
